@@ -4,10 +4,10 @@ import java.util.*;
 
 public class Model {
 	
-	private List <Esame> esami;
+	private List <Esame> esami;					//dichiarazione lista
 	
-	public Model(){
-		this.esami = new ArrayList<Esame>();	
+	public Model(){    							//(il costruttore non richiede parametri)
+		this.esami = new ArrayList<Esame>();	//inizializzazione lista
 	}
 	
 	/**
@@ -32,7 +32,7 @@ public class Model {
 	 * @return l'esame trovato, oppure null se non trovato
 	 */
 	public Esame trovaEsame(String codice){
-		int pos = esami.indexOf(new Esame(codice,null,null));  // creo un esame "finto" per usare indexOf per trovare l'esame. La ricerca avviene solo sul codice, gli altri parametri posso anch emetterli null
+		int pos = esami.indexOf(new Esame(codice,null,null));  // creo un esame "finto" per usare indexOf per trovare l'esame. La ricerca avviene solo sul codice, gli altri parametri posso anche metterli null
 		if( pos == -1){
 			return null;
 		}else{

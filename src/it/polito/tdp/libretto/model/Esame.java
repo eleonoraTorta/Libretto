@@ -3,7 +3,7 @@ import java.time.LocalDate;
 
 /**
 Oggetto semplice che contiene i dati relativi ad un singolo esame.
-POJO - plan old java object
+POJO - plan old java object  (---> oggetto semplice di java)
 Contiene:
 dati privati (proprieta)**
 costruttore
@@ -87,7 +87,7 @@ public class Esame {
 	/**
 	 * @param superato the superato to set
 	 */
-	private void setSuperato(boolean superato) {
+	private void setSuperato(boolean superato) {       //non voglio che qualcuno possa chiamare questo metodo e modificarlo settandolo come vuole. 
 		this.superato = superato;
 	}
 
@@ -109,7 +109,7 @@ public class Esame {
 	/**
 	 * @param voto the voto to set
 	 */
-	private void setVoto(int voto) {
+	private void setVoto(int voto) {      //non voglio che qualcuno possa chiamare questo metodo e modificarlo settandolo come vuole. 
 		this.voto = voto;
 	}
 
