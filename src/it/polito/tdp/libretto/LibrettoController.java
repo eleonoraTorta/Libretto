@@ -1,3 +1,7 @@
+/**
+ * Sample Skeleton for 'Libretto.fxml' Controller Class
+ */
+
 package it.polito.tdp.libretto;
 
 import java.net.URL;
@@ -13,89 +17,91 @@ import javafx.scene.control.TextField;
 
 public class LibrettoController {
 	
-	private Model model;
+	Model model;
 
-    @FXML
+	@FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
-    @FXML
+    @FXML // URL location of the FXML file that was given to the FXMLLoader
     private URL location;
 
-    @FXML
-    private TextField txtCodice;
+    @FXML // fx:id="txtCodice"
+    private TextField txtCodice; // Value injected by FXMLLoader
+
+    @FXML // fx:id="txtTitolo"
+    private TextField txtTitolo; // Value injected by FXMLLoader
+
+    @FXML // fx:id="txtDocente"
+    private TextField txtDocente; // Value injected by FXMLLoader
+
+    @FXML // fx:id="btnCerca"
+    private Button btnCerca; // Value injected by FXMLLoader
+
+    @FXML // fx:id="btnInserisci"
+    private Button btnInserisci; // Value injected by FXMLLoader
+
+    @FXML // fx:id="txtMessage"
+    private TextArea txtMessage; // Value injected by FXMLLoader
 
     @FXML
-    private TextField txtTitolo;
-
-    @FXML
-    private TextField txtDocente;
-
-    @FXML
-    private Button btnInserisci;
-
-    @FXML
-    private Button btnCerca;
-
-    @FXML
-    void doCerca(ActionEvent event) {
+    void handleCerca(ActionEvent event) {
     	String codice = txtCodice.getText();
-    	
-    	if(codice.length()<5){
+    	if(codice.length() <5){
     		txtMessage.appendText("Codice corso non valido\n");
     		return;
     	}
     	Esame e = model.trovaEsame(codice);
-    	
-    	if(e== null){
-    		txtMessage.appendText("Codice "+codice+ " non valido\n");
+    	if(e ==null){
+    		txtMessage.appendText("Codice "+ codice + " non trovato\n");
     	}else{
-    		txtMessage.appendText("Codice "+ codice + "trovato\n");
-    		txtCodice.setText(e.getTitolo());
+    		txtMessage.appendText("Codice "+ codice + " trovato\n");
+    		txtCodice.setText(e.getCodice());
     		txtTitolo.setText(e.getTitolo());
     		txtDocente.setText(e.getDocente());
     	}
 
     }
-    
-    @FXML
-    private TextArea txtMessage;
 
     @FXML
-    void doInserisci(ActionEvent event) {
+    void handleInserisci(ActionEvent event) {
     	//recupera i dati dalla vista
     	String codice = txtCodice.getText();
     	String titolo = txtTitolo.getText();
     	String docente = txtDocente.getText();
     	
     	//verifica la validita dei dati
-    	if(codice.length()<5 || titolo.length() ==0 || docente.length()==0){
-    		txtMessage.appendText("Dati esami insufficienti\n");	
+    	if(codice.length() <5 || titolo.length() ==0 || docente.length()==0 ){
+    		txtMessage.appendText("Dati esame insufficienti\n");
+    		return;
     	}
     	
-    	//chiedi al Model di effettuare l'operazione
+    	//chiedi al Model di effettuare l'operazione(inserimento)
     	Esame e = new Esame(codice, titolo, docente);
     	boolean result = model.addEsame(e);
     	
-    	//aggiorna la vista con il risulato dell'operazione
-    	if(result){
+    	//aggionrna la vista con il risultato dell'operazione
+    	if( result){
     		txtMessage.appendText("Esame aggiunto correttamente\n");
     	}else{
-    		txtMessage.appendText("Esame NON AGGIUNTO (codice dupilcato)\n");
+    		txtMessage.appendText("Esame NON AGGIUNTO (codice duplicato)\n");
     	}
+
     }
 
-    @FXML
+    @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         assert txtCodice != null : "fx:id=\"txtCodice\" was not injected: check your FXML file 'Libretto.fxml'.";
         assert txtTitolo != null : "fx:id=\"txtTitolo\" was not injected: check your FXML file 'Libretto.fxml'.";
         assert txtDocente != null : "fx:id=\"txtDocente\" was not injected: check your FXML file 'Libretto.fxml'.";
-        assert btnInserisci != null : "fx:id=\"btnInserisci\" was not injected: check your FXML file 'Libretto.fxml'.";
         assert btnCerca != null : "fx:id=\"btnCerca\" was not injected: check your FXML file 'Libretto.fxml'.";
+        assert btnInserisci != null : "fx:id=\"btnInserisci\" was not injected: check your FXML file 'Libretto.fxml'.";
+        assert txtMessage != null : "fx:id=\"txtMessage\" was not injected: check your FXML file 'Libretto.fxml'.";
 
     }
-    
-    public void setModel(Model m){
-    	this.model= m;
-    }
+    /**
+	 * @param model the model to set
+	 */
+	public void setModel(Model model) {
+		this.model = model;
+	}
 }
-
