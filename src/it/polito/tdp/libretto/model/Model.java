@@ -2,6 +2,8 @@ package it.polito.tdp.libretto.model;
 
 import java.util.*;
 
+import it.polito.tdp.libretto.db.EsameDAO;
+
 public class Model {
 	
 	private List <Esame> esami;					//dichiarazione lista
@@ -17,12 +19,8 @@ public class Model {
 	 * @return true se l'ha inserito, false se esisteva gia e quindi non l'ha inserito
 	 */
 	public boolean addEsame(Esame e ){
-		if( !esami.contains(e)){   //contains sulla lista di esami usa equals che ho creto in Esame
-			esami.add(e);
-			return true;
-		}else{
-			return false;
-		}
+		EsameDAO dao = new EsameDAO();
+		return dao.create(e);
 	}
 	
 	/**
@@ -32,12 +30,9 @@ public class Model {
 	 * @return l'esame trovato, oppure null se non trovato
 	 */
 	public Esame trovaEsame(String codice){
-		int pos = esami.indexOf(new Esame(codice,null,null));  // creo un esame "finto" per usare indexOf per trovare l'esame. La ricerca avviene solo sul codice, gli altri parametri posso anche metterli null
-		if( pos == -1){
-			return null;
-		}else{
-			return esami.get(pos);
-		}
+		EsameDAO dao = new EsameDAO();
+		Esame e = dao.find(codice);
+		return e;
 	}
 
 }
